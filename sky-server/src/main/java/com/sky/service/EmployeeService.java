@@ -30,4 +30,9 @@ public interface EmployeeService {
     PageResult getEmployeePage(EmployeePageQueryDTO employeePageQueryDTO);
 
 
+    void enableOrDisableEmployee(Integer status, Long id);
+
+    Employee getEmployeeById(Long id);
+
+    void updateEmployee(EmployeeDTO employeeDTO);
 }

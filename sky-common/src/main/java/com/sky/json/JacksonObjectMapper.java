@@ -51,16 +51,4 @@ public class JacksonObjectMapper extends ObjectMapper {
         //注册功能模块 例如，可以添加自定义序列化器和反序列化器
         this.registerModule(simpleModule);
     }
-
-    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        //创建一个消息转换器对象
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-
-        //给消息转换器对象设置一个对象转换器
-        //对象转换器可以将java对象序列化为json数据
-        converter.setObjectMapper(new JacksonObjectMapper());
-
-        //将自己的消息转化器加入到容器中
-        converters.add(0, converter);
-    }
 }

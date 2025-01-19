@@ -6,12 +6,12 @@ import com.sky.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
 @Mapper
 public interface EmployeeMapper {
-
     /**
      * 根据用户名查询员工
      * @param username
@@ -41,8 +41,17 @@ public interface EmployeeMapper {
      */
     Page<Employee> selectEmployeePage(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * 修改员工
+     * @param employee
+     */
+    void update(Employee employee);
 
-
-
-
+    /**
+     * 查询指定id员工
+     * @param id
+     * @return
+     */
+    @Select("SELECT * FROM employee WHERE id = #{id}")
+    Employee selectEmployeeById(Long id);
 }
