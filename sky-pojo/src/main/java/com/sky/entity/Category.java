@@ -12,32 +12,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    //类型: 1菜品分类 2套餐分类
-    private Integer type;
+    private Integer type;               //类型: 1菜品分类 2套餐分类
 
-    //分类名称
-    private String name;
+    private String name;                //分类名称
 
-    //顺序
-    private Integer sort;
+    private Integer sort;               //顺序
 
-    //分类状态 0标识禁用 1表示启用
-    private Integer status;
+    private Integer status;             //分类状态 0标识禁用 1表示启用
 
-    //创建时间
-    private LocalDateTime createTime;
+    private LocalDateTime createTime;   //创建时间
 
-    //更新时间
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime;   //更新时间
 
-    //创建人
-    private Long createUser;
+    private Long createUser;            //创建人
 
-    //修改人
-    private Long updateUser;
+    private Long updateUser;            //修改人
 }

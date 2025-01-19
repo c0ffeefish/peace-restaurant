@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class CategoryDTO implements Serializable {
-
     //主键
     private Long id;
 
@@ -18,5 +17,4 @@ public class CategoryDTO implements Serializable {
 
     //排序
     private Integer sort;
-
 }
