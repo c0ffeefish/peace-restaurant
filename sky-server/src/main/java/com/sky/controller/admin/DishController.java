@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
+import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class DishController {
     @Autowired
     private DishService dishService;
+    @Autowired
+    private DishMapper dishMapper;
 
     @PostMapping("")
     @ApiOperation("新增菜品操作")
@@ -32,5 +35,12 @@ public class DishController {
     public Result<PageResult> getDishPage(DishPageQueryDTO dishPageQueryDTO) {
         PageResult pageResult = dishService.getDishPage(dishPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    @DeleteMapping("")
+    @ApiOperation("批量删除菜品")
+    public Result deleteDish(String ids) {
+        dishService.deleteDish(ids);
+        return Result.success();
     }
 }

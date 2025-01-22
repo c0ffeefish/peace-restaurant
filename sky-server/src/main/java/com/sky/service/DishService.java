@@ -9,4 +9,8 @@ public interface DishService {
     void addDish(DishDTO dish);
 
     PageResult getDishPage(DishPageQueryDTO dishPageQueryDTO);
+
+    void deleteDish(String ids);
+
+
 }
