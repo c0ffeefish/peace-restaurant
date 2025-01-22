@@ -3,7 +3,24 @@
 <mapper namespace="com.sky.mapper.DishMapper">
     <!--主键回显-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO dish(name, category_id, price, image, description, status, create_time, update_time, create_user, update_user)
-        VALUES (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
+        insert into dish(name, category_id, price, image, description, status, create_time, update_time, create_user, update_user)
+        values (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
     </insert>
+
+    <select id="selectDishWithCategoryPage" resultType="com.sky.vo.DishVO">
+        select a.*, b.name as categoryName from dish a
+        left outer join category b
+        on a.category_id = b.id
+        <where>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+        </where>
+    </select>
 </mapper>
