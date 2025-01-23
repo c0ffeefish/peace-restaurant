@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface DishMapper {
 
@@ -60,9 +62,19 @@ public interface DishMapper {
     Dish select(Long id);
 
     /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Select("SELECT * FROM dish WHERE category_id = #{categoryId}")
+    List<Dish> selectByCategoryId(Integer categoryId);
+
+    /**
      *修改菜品
      * @param dish
      */
     @AutoFill(OperationType.INSERT)
     void update(Dish dish);
+
+
 }

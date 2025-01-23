@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/dish")
 @Api(tags = "菜品相关接口")
@@ -57,5 +59,16 @@ public class DishController {
     public Result update(@RequestBody DishDTO dishDTO) {
         dishService.update(dishDTO);
         return Result.success();
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    public Result<List<Dish>> list(Integer categoryId){
+        List<Dish> dishList = dishService.list(categoryId);
+        return Result.success(dishList);
     }
 }

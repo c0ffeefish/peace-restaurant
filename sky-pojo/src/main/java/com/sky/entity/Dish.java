@@ -16,28 +16,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dish implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    //菜品名称
-    private String name;
+    private String name;                //菜品名称
 
-    //菜品分类id
-    private Long categoryId;
+    private Long categoryId;            //菜品分类id
 
-    //菜品价格
-    private BigDecimal price;
+    private BigDecimal price;           //菜品价格
 
-    //图片
-    private String image;
+    private String image;               //图片
 
-    //描述信息
-    private String description;
+    private String description;         //描述信息
 
-    //0 停售 1 起售
-    private Integer status;
+    private Integer status;             //0 停售 1 起售
 
     private LocalDateTime createTime;
 

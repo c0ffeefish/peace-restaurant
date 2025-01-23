@@ -106,4 +106,10 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.insert(dishFlavorList);
         }
     }
+
+    @Override
+    public List<Dish> list(Integer categoryId){
+        List<Dish> dishList = dishMapper.selectByCategoryId(categoryId);
+        return dishList;
+    }
 }
