@@ -103,4 +103,16 @@ public class SetmealServiceImpl implements SetmealService {
     public void updateStatus(Integer status, Long id) {
         setmealMapper.updateStatus(status, id);
     }
+
+    @Override
+    public List<Setmeal> getSetmealByCategoryId(Long categoryId) {
+        List<Setmeal> setmealList = setmealMapper.selectByCategoryId(categoryId);
+        return setmealList;
+    }
+
+    @Override
+    public List<SetmealDish> getSetmealDishBySetmealId(Long SetmealId) {
+        List<SetmealDish> setmealDishList = setmealDishMapper.selectBySetmealId(SetmealId);
+        return setmealDishList;
+    }
 }

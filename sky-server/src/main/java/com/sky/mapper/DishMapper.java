@@ -66,8 +66,8 @@ public interface DishMapper {
      * @param categoryId
      * @return
      */
-    @Select("SELECT * FROM dish WHERE category_id = #{categoryId}")
-    List<Dish> selectByCategoryId(Integer categoryId);
+    @Select("SELECT * FROM dish WHERE category_id = #{categoryId} AND status = #{status}")
+    List<Dish> selectByCategoryId(Long categoryId, Integer status);
 
     /**
      *修改菜品

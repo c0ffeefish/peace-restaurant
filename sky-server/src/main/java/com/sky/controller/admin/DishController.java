@@ -67,8 +67,8 @@ public class DishController {
      * @return
      */
     @GetMapping("/list")
-    public Result<List<Dish>> list(Integer categoryId){
-        List<Dish> dishList = dishService.list(categoryId);
-        return Result.success(dishList);
+    public Result<List<DishVO>> list(Long categoryId){
+        List<DishVO> List = dishService.list(categoryId);
+        return Result.success(List);
     }
 }

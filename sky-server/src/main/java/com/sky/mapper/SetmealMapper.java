@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface SetmealMapper {
 
@@ -46,4 +48,7 @@ public interface SetmealMapper {
 
     @Update("UPDATE setmeal SET status = #{status} WHERE id = #{id}")
     void updateStatus(Integer status, Long id);
+
+    @Select("SELECT * FROM setmeal WHERE category_id = #{categoryId}")
+    List<Setmeal> selectByCategoryId(Long categoryId);
 }
