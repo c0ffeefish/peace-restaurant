@@ -15,6 +15,7 @@ import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,14 +32,16 @@ public class DishServiceImpl implements DishService {
     private DishFlavorMapper dishFlavorMapper;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    public static String DishKEY = "dish_";
 
     @Override
     public void addDish(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
-        if(dish.getStatus() == null){
-            dish.setStatus(0);
-        }
+        dish.setStatus(0);
 
         dishMapper.insert(dish);
         Long id = dish.getId();
@@ -96,6 +99,10 @@ public class DishServiceImpl implements DishService {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
 
+        //清除对应套餐缓存
+        String key = DishKEY + dish.getCategoryId();
+        redisTemplate.delete(key);
+
         dishFlavorMapper.deleteByDishId(dish.getId());
         dishMapper.update(dish);
         List<DishFlavor> dishFlavorList = dishDTO.getFlavors();
@@ -122,5 +129,14 @@ public class DishServiceImpl implements DishService {
         }
 
         return dishVOList;
+    }
+
+    @Override
+    public void updateStatus(Long id, Integer status) {
+        Dish dish = new Dish();
+        dish.setId(id);
+        dish.setStatus(status);
+        redisTemplate.delete(dishMapper.selectCategoryId(id));
+        dishMapper.update(dish);
     }
 }

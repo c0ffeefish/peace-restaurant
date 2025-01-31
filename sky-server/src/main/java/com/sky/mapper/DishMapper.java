@@ -76,5 +76,8 @@ public interface DishMapper {
     @AutoFill(OperationType.INSERT)
     void update(Dish dish);
 
+    @Select("SELECT category_id FROM dish WHERE id = #{id}")
+    Long selectCategoryId(Long id);
+
 
 }

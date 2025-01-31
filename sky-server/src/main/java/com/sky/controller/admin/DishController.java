@@ -23,8 +23,6 @@ import java.util.List;
 public class DishController {
     @Autowired
     private DishService dishService;
-    @Autowired
-    private DishMapper dishMapper;
 
     @PostMapping("")
     @ApiOperation("新增菜品操作")
@@ -58,6 +56,12 @@ public class DishController {
     @ApiOperation("修改菜品操作")
     public Result update(@RequestBody DishDTO dishDTO) {
         dishService.update(dishDTO);
+        return Result.success();
+    }
+
+    @PostMapping("/status/{status}")
+    public Result updateStatus(@PathVariable Integer status, Long id){
+        dishService.updateStatus(id, status);
         return Result.success();
     }
 
