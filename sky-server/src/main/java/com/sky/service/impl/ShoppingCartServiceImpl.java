@@ -10,6 +10,7 @@ import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.mapper.ShoppingCartMapper;
 import com.sky.service.ShoppingCartService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,4 +68,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCartMapper.add(shoppingCart);
         }
     }
+
+    @Override
+    public List<ShoppingCart> get() {
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUserId(userId);
+        return shoppingCartMapper.list(shoppingCart);
+    }
+
+    @Override
+    public void clean() {
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUserId(userId);
+        shoppingCartMapper.clean();
+    }
+
 }
