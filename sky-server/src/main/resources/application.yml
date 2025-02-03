@@ -42,3 +42,7 @@ sky:
     admin-ttl: 86400000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+
+    user-secret-key: wuyu
+    user-ttl: 86400000
+    user-token-name: authentication
