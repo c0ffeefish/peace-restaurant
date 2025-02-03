@@ -15,47 +15,33 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressBook implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    //用户id
-    private Long userId;
+    private Long userId;            //用户id
 
-    //收货人
-    private String consignee;
+    private String consignee;       //收货人
 
-    //手机号
-    private String phone;
+    private String phone;           //手机号
 
-    //性别 0 女 1 男
-    private String sex;
+    private String sex;             //性别 0 女 1 男
 
-    //省级区划编号
-    private String provinceCode;
+    private String provinceCode;    //省级区划编号
 
-    //省级名称
-    private String provinceName;
+    private String provinceName;    //省级名称
 
-    //市级区划编号
-    private String cityCode;
+    private String cityCode;        //市级区划编号
 
-    //市级名称
-    private String cityName;
+    private String cityName;        //市级名称
 
-    //区级区划编号
-    private String districtCode;
+    private String districtCode;    //区级区划编号
 
-    //区级名称
-    private String districtName;
+    private String districtName;    //区级名称
 
-    //详细地址
-    private String detail;
+    private String detail;          //详细地址
 
-    //标签
-    private String label;
+    private String label;           //标签
 
-    //是否默认 0否 1是
-    private Integer isDefault;
+    private Integer isDefault;      //是否默认 0否 1是
 }
