@@ -39,71 +39,50 @@ public class Orders implements Serializable {
 
     private Long id;
 
-    //订单号
-    private String number;
+    private String number;              //订单号
 
     //订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消 7退款
     private Integer status;
 
-    //下单用户id
-    private Long userId;
+    private Long userId;                //下单用户id
 
-    //地址id
-    private Long addressBookId;
+    private Long addressBookId;         //地址id
 
-    //下单时间
-    private LocalDateTime orderTime;
+    private LocalDateTime orderTime;    //下单时间
 
-    //结账时间
-    private LocalDateTime checkoutTime;
+    private LocalDateTime checkoutTime; //结账时间
 
-    //支付方式 1微信，2支付宝
-    private Integer payMethod;
+    private Integer payMethod;          //支付方式 1微信，2支付宝
 
-    //支付状态 0未支付 1已支付 2退款
-    private Integer payStatus;
+    private Integer payStatus;          //支付状态 0未支付 1已支付 2退款
 
-    //实收金额
-    private BigDecimal amount;
+    private BigDecimal amount;          //实收金额
 
-    //备注
-    private String remark;
+    private String remark;              //备注
 
-    //用户名
-    private String userName;
+    private String userName;            //用户名
 
-    //手机号
-    private String phone;
+    private String phone;               //手机号
 
-    //地址
-    private String address;
+    private String address;             //地址
 
-    //收货人
-    private String consignee;
+    private String consignee;           //收货人
 
-    //订单取消原因
-    private String cancelReason;
+    private String cancelReason;        //订单取消原因
 
-    //订单拒绝原因
-    private String rejectionReason;
+    private String rejectionReason;     //订单拒绝原因
 
-    //订单取消时间
-    private LocalDateTime cancelTime;
+    private LocalDateTime cancelTime;   //订单取消时间
 
-    //预计送达时间
-    private LocalDateTime estimatedDeliveryTime;
+    private LocalDateTime estimatedDeliveryTime;    //预计送达时间
 
-    //配送状态  1立即送出  0选择具体时间
-    private Integer deliveryStatus;
+    private Integer deliveryStatus;     //配送状态  1立即送出  0选择具体时间
 
-    //送达时间
-    private LocalDateTime deliveryTime;
+    private LocalDateTime deliveryTime; //送达时间
 
-    //打包费
-    private int packAmount;
+    private int packAmount;             //打包费
 
-    //餐具数量
-    private int tablewareNumber;
+    private int tablewareNumber;        //餐具数量
 
     //餐具数量状态  1按餐量提供  0选择具体数量
     private Integer tablewareStatus;

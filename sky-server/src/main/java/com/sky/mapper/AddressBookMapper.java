@@ -18,10 +18,10 @@ public interface AddressBookMapper {
      * 新增
      * @param addressBook
      */
-    @Insert("insert into address_book" +
+    @Insert("INSERT INTO address_book" +
             "        (user_id, consignee, phone, sex, province_code, province_name, city_code, city_name, district_code," +
             "         district_name, detail, label, is_default)" +
-            "        values (#{userId}, #{consignee}, #{phone}, #{sex}, #{provinceCode}, #{provinceName}, #{cityCode}, #{cityName}," +
+            "        VALUES (#{userId}, #{consignee}, #{phone}, #{sex}, #{provinceCode}, #{provinceName}, #{cityCode}, #{cityName}," +
             "                #{districtCode}, #{districtName}, #{detail}, #{label}, #{isDefault})")
     void insert(AddressBook addressBook);
 
@@ -30,7 +30,7 @@ public interface AddressBookMapper {
      * @param id
      * @return
      */
-    @Select("select * from address_book where id = #{id}")
+    @Select("SELECT * FROM address_book WHERE id = #{id}")
     AddressBook getById(Long id);
 
     /**
@@ -43,14 +43,22 @@ public interface AddressBookMapper {
      * 根据 用户id修改 是否默认地址
      * @param addressBook
      */
-    @Update("update address_book set is_default = #{isDefault} where user_id = #{userId}")
+    @Update("UPDATE address_book SET is_default = #{isDefault} WHERE user_id = #{userId}")
     void updateIsDefaultByUserId(AddressBook addressBook);
 
     /**
      * 根据id删除地址
      * @param id
      */
-    @Delete("delete from address_book where id = #{id}")
+    @Delete("DELETE FROM address_book WHERE id = #{id}")
     void deleteById(Long id);
+
+    /**
+     * 根据用户id查询地址
+     * @param userId
+     * @return
+     */
+    @Select("SELECT * FROM address_book WHERE user_id = #{userId}")
+    AddressBook getByUserId(Long userId);
 
 }

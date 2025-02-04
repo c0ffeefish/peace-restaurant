@@ -18,5 +18,5 @@ public interface ShoppingCartMapper {
     void updateOne(ShoppingCart shoppingCart);
 
     @Delete("DELETE FROM shopping_cart WHERE user_id = #{userId}")
-    void clean();
+    void clean(Long userId);
 }
