@@ -46,3 +46,6 @@ sky:
     user-secret-key: wuyu
     user-ttl: 86400000
     user-token-name: authentication
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
