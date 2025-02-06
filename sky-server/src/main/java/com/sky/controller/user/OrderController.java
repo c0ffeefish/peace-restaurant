@@ -2,7 +2,7 @@ package com.sky.controller.user;
 
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.result.Result;
-import com.sky.service.OrdersService;
+import com.sky.service.OrderService;
 import com.sky.vo.OrderSubmitVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user/order")
 @ApiOperation("用户端订单接口")
 @Slf4j
-public class OrdersController {
+public class OrderController {
     @Autowired
-    private OrdersService ordersService;
+    private OrderService ordersService;
 
     @PostMapping("/submit")
     public Result<OrderSubmitVO> submit(@RequestBody OrdersSubmitDTO ordersSubmitDTO) {
