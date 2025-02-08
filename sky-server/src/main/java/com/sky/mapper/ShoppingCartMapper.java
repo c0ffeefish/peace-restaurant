@@ -12,7 +12,7 @@ public interface ShoppingCartMapper {
 
     List<ShoppingCart> list(ShoppingCart shoppingCart);
 
-    void add(ShoppingCart shoppingCart);
+    void insert(ShoppingCart shoppingCart);
 
     @Update("UPDATE shopping_cart SET number = #{number} WHERE id = #{id}")
     void updateOne(ShoppingCart shoppingCart);
