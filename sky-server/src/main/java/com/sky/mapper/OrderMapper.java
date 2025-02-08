@@ -5,7 +5,9 @@ import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.core.annotation.Order;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -20,4 +22,7 @@ public interface OrderMapper {
     Integer countByStatus(Integer status);
 
     void update(Orders orders);
+
+    @Select("SELECT * FROM orders WHERE status = #{status} AND order_time < #{orderTime}")
+    List<Orders> selectByStatusAndTime(Integer status, LocalDateTime orderTime);
 }
