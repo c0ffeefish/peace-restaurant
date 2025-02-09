@@ -15,6 +15,9 @@ public interface OrderMapper {
 
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 
+    @Select("SELECT * FROM orders WHERE number = #{number}")
+    Orders getByNumber(String number);
+
     @Select("SELECT * FROM orders WHERE id = #{id}")
     Orders selectById(Long id);
 

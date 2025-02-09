@@ -23,12 +23,15 @@ public class ShoppingCartController {
     @PostMapping("/add")
     @ApiOperation("添加购物车")
     public Result add(@RequestBody ShoppingCartDTO shoppingCartDTO) {
-        if(shoppingCartDTO.getSetmealId() != null && shoppingCartDTO.getSetmealId() != null){
+        log.info("尝试添加菜品");
+        if(shoppingCartDTO.getDishId() != null && shoppingCartDTO.getSetmealId() != null){
             return Result.error("菜品和套餐只能选择一个来添加");
         }
-        if(shoppingCartDTO.getSetmealId() == null && shoppingCartDTO.getSetmealId() == null){
+        if(shoppingCartDTO.getDishId() == null && shoppingCartDTO.getSetmealId() == null){
             return Result.error("菜品和套餐必须选择一个来添加");
         }
+
+        log.info("添加菜品到购物车");
 
         shoppingCartService.add(shoppingCartDTO);
         return Result.success();
@@ -37,6 +40,7 @@ public class ShoppingCartController {
     @GetMapping("/list")
     @ApiOperation("查询购物车")
     public Result<List<ShoppingCart>> get(){
+        log.info("查询购物车");
         List<ShoppingCart> shoppingCartList = shoppingCartService.get();
         return Result.success(shoppingCartList);
     }

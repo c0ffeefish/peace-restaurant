@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface OrderDetailMapper {
-    void insertCarts(List<ShoppingCart> cartList);
+    void insertCarts(List<OrderDetail> orderDetailList);
 
     @Select("SELECT * FROM order_detail WHERE order_id = #{orderId}")
     List<OrderDetail> selectByOrderId(Long orderId);
