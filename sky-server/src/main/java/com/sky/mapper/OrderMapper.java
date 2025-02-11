@@ -3,9 +3,11 @@ package com.sky.mapper;
 import com.github.pagehelper.Page;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
+import com.sky.entity.Turnover;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,4 +30,6 @@ public interface OrderMapper {
 
     @Select("SELECT * FROM orders WHERE status = #{status} AND order_time < #{orderTime}")
     List<Orders> selectByStatusAndTime(Integer status, LocalDateTime orderTime);
+
+    List<Turnover> selectDateAndTurnover(LocalDate begin, LocalDate end);
 }

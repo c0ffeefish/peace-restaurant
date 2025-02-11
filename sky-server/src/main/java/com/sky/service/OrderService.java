@@ -29,7 +29,7 @@ public interface OrderService {
 
     OrderVO detail(Long id);
 
-    void confirm(Long id);
+    void confirm(OrdersConfirmDTO ordersConfirmDTO);
 
     void reject(OrdersRejectionDTO ordersRejectionDTO);
 
@@ -50,4 +50,6 @@ public interface OrderService {
     void userCancel(Long id);
 
     void repetition(Long id);
+
+    void reminder(Long id);
 }

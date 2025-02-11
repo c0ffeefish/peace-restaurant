@@ -1,5 +1,6 @@
 package com.sky.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +17,7 @@ import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.websocket.WebSocketServer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -37,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ShoppingCartMapper shoppingCartMapper;
     @Autowired
-    private UserMapper userMapper;
+    private WebSocketServer webSocketServer;
 
     @Override
     public OrderSubmitVO submit(OrdersSubmitDTO ordersSubmitDTO) {
@@ -110,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
         // 当前登录用户id
         Long userId = BaseContext.getCurrentId();
-        User user = userMapper.getById(userId);
+        //User user = userMapper.getById(userId);
 
         //调用微信支付接口，生成预支付交易单
         /*JSONObject jsonObject = weChatPayUtil.pay(
@@ -130,13 +134,14 @@ public class OrderServiceImpl implements OrderService {
         vo.setPackageStr(jsonObject.getString("package"));
 
         //替代支付功能，向数据库传入状态
-        Orders orders = new Orders();
+        /*Orders orders = new Orders();
         orders.setUserId(userId);
         orders.setStatus(Orders.TO_BE_CONFIRMED);
         orders.setPayStatus(Orders.PAID);
         orders.setCheckoutTime(LocalDateTime.now());
+        orderMapper.update(orders);*/
 
-        orderMapper.update(orders);
+        paySuccess(ordersPaymentDTO.getOrderNumber());
 
         return vo;
     }
@@ -158,10 +163,38 @@ public class OrderServiceImpl implements OrderService {
                 .checkoutTime(LocalDateTime.now())
                 .build();
 
+        Map map = new HashMap();
+        map.put("type", 1);
+        map.put("orderId", ordersDB.getId());
+        map.put("content", "订单号: " + outTradeNo);
+
+        String json = JSON.toJSONString(map);
+        webSocketServer.sendToAllClient(json);
+
         orderMapper.update(orders);
     }
 
+    /**
+     * 催单
+     * @param id
+     */
+    @Override
+    public void reminder(Long id) {
+        Map map = new HashMap();
 
+        map.put("type", 2);
+        map.put("orderId", id);
+        map.put("content", "用户催单: " + id);
+
+        String json = JSON.toJSONString(map);
+        webSocketServer.sendToAllClient(json);
+    }
+
+    /**
+     * 管理端查询订单
+     * @param ordersPageQueryDTO
+     * @return
+     */
     @Override
     public PageResult pageQuery(OrdersPageQueryDTO ordersPageQueryDTO) {
         PageHelper.startPage(ordersPageQueryDTO.getPage(), ordersPageQueryDTO.getPageSize());
@@ -208,12 +241,16 @@ public class OrderServiceImpl implements OrderService {
         return orderVO;
     }
 
+    /**
+     * 确认订单
+     * @param id
+     */
     @Override
-    public void confirm(Long id) {
-        Orders ordersDB = getOrders(id, Orders.TO_BE_CONFIRMED);
+    public void confirm(OrdersConfirmDTO ordersConfirmDTO) {
+        Orders ordersDB = getOrders(ordersConfirmDTO.getId(), Orders.TO_BE_CONFIRMED);
 
         Orders orders = new Orders();
-        orders.setId(id);
+        orders.setId(ordersConfirmDTO.getId());
         orders.setStatus(Orders.CONFIRMED);
 
         orderMapper.update(orders);
@@ -253,7 +290,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delivery(Long id) {
-        Orders ordersDB = getOrders(id, Orders.TO_BE_CONFIRMED);
+        Orders ordersDB = getOrders(id, Orders.CONFIRMED);
 
         Orders orders = new Orders();
         orders.setId(id);

@@ -46,4 +46,13 @@
             <if test="userId != null">and user_id = #{userId}</if>
         </where>
     </select>
+
+    <select id="selectDateAndTurnover" resultType="com.sky.entity.Turnover">
+        select DATE(order_time) as date, sum(amount) as sum from orders
+        where status = 5 and DATE(order_time) between #{begin} and #{end}
+        group by DATE(order_time)
+        order by DATE(order_time)
+    </select>
+
+
 </mapper>

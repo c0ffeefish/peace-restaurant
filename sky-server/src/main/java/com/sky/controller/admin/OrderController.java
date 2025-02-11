@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.dto.OrdersCancelDTO;
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersRejectionDTO;
 import com.sky.entity.Orders;
@@ -28,7 +29,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/conditionSearch")
-    public Result<PageResult> pageQuery(@RequestBody OrdersPageQueryDTO ordersPageQueryDTO){
+    public Result<PageResult> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO){
         PageResult pageResult = orderService.pageQuery(ordersPageQueryDTO);
         return Result.success(pageResult);
     }
@@ -60,8 +61,8 @@ public class OrderController {
      * @return
      */
     @PutMapping("/confirm")
-    public Result confirm(Long id){
-        orderService.confirm(id);
+    public Result confirm(@RequestBody OrdersConfirmDTO ordersConfirmDTO){
+        orderService.confirm(ordersConfirmDTO);
         return Result.success();
     }
 
