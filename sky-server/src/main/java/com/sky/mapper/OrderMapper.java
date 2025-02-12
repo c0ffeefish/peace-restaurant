@@ -32,6 +32,12 @@ public interface OrderMapper {
     @Select("SELECT * FROM orders WHERE status = #{status} AND order_time < #{orderTime}")
     List<Orders> selectByStatusAndTime(Integer status, LocalDateTime orderTime);
 
+    /**
+     * 选取指定时间段营业额
+     * @param begin
+     * @param end
+     * @return
+     */
     List<Statistics> selectDateAndTurnover(LocalDate begin, LocalDate end);
 
     /**
@@ -40,4 +46,12 @@ public interface OrderMapper {
      * @return
      */
     List<Statistics> selectOrdersByTime(Map map);
+
+    /**
+     * 根据动态条件统计订单数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
+
 }
