@@ -5,4 +5,11 @@
         insert into user (openid, name, phone, sex, id_number, avatar, create_time)
         values (#{openid}, #{name}, #{phone}, #{sex}, #{idNumber}, #{avatar}, #{createTime})
     </insert>
+
+    <select id="selectNewUser" resultType="com.sky.entity.Statistics">
+        select DATE(create_time) as date, count(*) as userSum from user
+        where DATE(create_time) between #{begin} and #{end}
+        group by DATE(create_time)
+        order by DATE(create_time)
+    </select>
 </mapper>

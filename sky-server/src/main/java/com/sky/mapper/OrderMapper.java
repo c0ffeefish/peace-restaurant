@@ -3,13 +3,14 @@ package com.sky.mapper;
 import com.github.pagehelper.Page;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
-import com.sky.entity.Turnover;
+import com.sky.entity.Statistics;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -31,5 +32,12 @@ public interface OrderMapper {
     @Select("SELECT * FROM orders WHERE status = #{status} AND order_time < #{orderTime}")
     List<Orders> selectByStatusAndTime(Integer status, LocalDateTime orderTime);
 
-    List<Turnover> selectDateAndTurnover(LocalDate begin, LocalDate end);
+    List<Statistics> selectDateAndTurnover(LocalDate begin, LocalDate end);
+
+    /**
+     * 订单数量统计
+     * @param map
+     * @return
+     */
+    List<Statistics> selectOrdersByTime(Map map);
 }

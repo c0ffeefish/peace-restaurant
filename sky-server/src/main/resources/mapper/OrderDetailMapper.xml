@@ -7,4 +7,12 @@
             (#{order.name}, #{order.image}, #{order.orderId}, #{order.dishId}, #{order.setmealId}, #{order.dishFlavor}, #{order.amount})
         </foreach>
     </insert>
+    <select id="selectTop10" resultType="com.sky.entity.SalesTop10Report">
+        select a.name, sum(a.number) as numbers
+        from order_detail a, orders b
+        where a.order_id = b.id and b.status = 5 and DATE(b.order_time) between #{begin} and #{end}
+        group by a.name
+        order by numbers desc
+        limit 10
+    </select>
 </mapper>
